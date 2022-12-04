@@ -16,3 +16,12 @@ call utils#Cabbrev('ps', 'PackerSync')
 nnoremap <silent> <leader>ff :Telescope find_files<CR>
 nnoremap <silent> <leader>fg :Telescope live_grep<CR>
 nnoremap <silent> <leader>fr :Telescope oldfiles<CR>
+
+""""""""""""""""""""""""vim-mundo settings"""""""""""""""""""""""
+let g:mundo_verbose_graph = 0
+let g:mundo_width = 80
+
+nnoremap <silent> <Space>u :MundoToggle<CR>
+
+""""""""""""""""""""""""""""""vim-auto-save settings""""""""""""""""""""""""""""""
+let g:auto_save = 1  " enable AutoSave on Vim startup

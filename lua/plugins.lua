@@ -123,12 +123,18 @@ packer.startup {
 	  use {
     	"jose-elias-alvarez/null-ls.nvim",
     	requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        require('null-ls').setup()
+      end
 	  }
     
 	  use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
 	  use {
     	'L3MON4D3/LuaSnip',
     	after = 'nvim-cmp',
+      config = function()
+        require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "typescript" } })
+      end
 	  }
 	  use { "lukas-reineke/indent-blankline.nvim", config = [[require('config.indent-blankline')]] }
 	  use {
@@ -159,6 +165,9 @@ packer.startup {
       config = [[require('config.statusline')]],
       after = 'lspkind-nvim'
     }
+
+    use { "akinsho/bufferline.nvim", event = "VimEnter",
+      config = [[require('config.bufferline')]] }
 
     -- fancy start screen
     use { "glepnir/dashboard-nvim", event = "VimEnter",
@@ -246,6 +255,18 @@ packer.startup {
 
     use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = function()
         require('fidget').setup()
+      end
+    }
+
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
       end
     }
   end,
