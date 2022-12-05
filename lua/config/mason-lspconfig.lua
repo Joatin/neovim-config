@@ -1,0 +1,21 @@
+require("mason-lspconfig").setup({
+    ensure_installed = { 
+      "cmake",
+      "cucumber_language_server",
+      "diagnosticls",
+      "dockerls",
+      "eslint",
+      "graphql",
+      "html",
+      "jsonls",
+      "tsserver",
+      "kotlin_language_server",
+      "sumneko_lua",
+      "stylelint_lsp",
+      "taplo",
+      "terraformls",
+      "tflint",
+      "vimls",
+      "yamlls",
+    }
+})

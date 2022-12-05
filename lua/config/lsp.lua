@@ -36,11 +36,18 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   -- Set some key bindings conditional on server capabilities
   if client.server_capabilities.documentFormattingProvider then
-    map("n", "<space>f", vim.lsp.buf.format, { desc = "format code" })
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format({bufnr = bufnr, timeout_ms = 2000})
+      end,
+    })
+    vim.keymap.set("n", "<space>f", vim.lsp.buf.format, { desc = "format code" })
   end
 
   api.nvim_create_autocmd("CursorHold", {
@@ -104,29 +111,81 @@ end
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+  on_attach = on_attach,
+  flags = lsp_flags,
 	capabilities = capabilities
 }
 
 require'lspconfig'.dockerls.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.eslint.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.graphql.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.html.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.terraformls.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.tflint.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 require'lspconfig'.yamlls.setup{
-capabilities = capabilities
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.cmake.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.cucumber_language_server.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.diagnosticls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.jsonls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.kotlin_language_server.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.sumneko_lua.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.stylelint_lsp.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.taplo.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+require'lspconfig'.vimls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities
 }

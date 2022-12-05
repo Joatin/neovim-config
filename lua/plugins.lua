@@ -59,10 +59,19 @@ packer.startup {
     if vim.g.is_mac then
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
+    
+    use { 
+      "williamboman/mason.nvim", 
+      config = function()
+        require('mason').setup()
+      end
+    }
+    use { "williamboman/mason-lspconfig.nvim", after = "mason.nvim", config = [[require('config.mason-lspconfig')]] }
+    use { "jayp0521/mason-null-ls.nvim", after = "mason.nvim", config = [[require('config.mason-null-ls')]] }
 
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
-    use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
-
+    use { "neovim/nvim-lspconfig", after = {"cmp-nvim-lsp", "mason-lspconfig.nvim"}, config = [[require('config.lsp')]] }
+    
     if vim.g.is_mac then
       use {
         "nvim-treesitter/nvim-treesitter",
@@ -122,10 +131,9 @@ packer.startup {
 	  }
 	  use {
     	"jose-elias-alvarez/null-ls.nvim",
+      after = "mason-null-ls.nvim",
     	requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require('null-ls').setup()
-      end
+      config = [[require('config.null-ls')]]
 	  }
     
 	  use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
