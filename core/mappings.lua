@@ -4,6 +4,9 @@ local uv = vim.loop
 
 keymap.set({ "n", "x" }, ";", ":")
 
+-- Switch buffer
+keymap.set("n", "<TAB>", "<cmd>:bn<cr>", { silent = true, desc = "Next buffer" })
+keymap.set("n", "<S-TAB>", "<cmd>:bp<cr>", { silent = true, desc = "Previous buffer" })
 
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
@@ -63,3 +66,10 @@ keymap.set("i", "<C-E>", "<END>")
 
 -- Go to beginning of command in command-line mode
 keymap.set("c", "<C-A>", "<HOME>")
+
+-- Telescope
+keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "find files in workspace", silent = true })
+keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", { desc = "search in workspace files", silent = true })
+keymap.set("n", "<leader>fr", ":Telescope frecency workspace=CWD<CR>", { desc = "find recent files", silent = true })
+keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "list all active buffers", silent = true })
+

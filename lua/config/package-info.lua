@@ -5,5 +5,5 @@ require('package-info').setup {
 	autostart = true,
 	hide_up_to_date = false,
 	hide_unstable_versions = true,
-	package_manager = 'yarn'
+	package_manager = 'pnpm'
 }

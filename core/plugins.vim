@@ -12,10 +12,6 @@ call utils#Cabbrev('pud', 'PackerUpdate')
 call utils#Cabbrev('pc', 'PackerClean')
 call utils#Cabbrev('ps', 'PackerSync')
 
-""""""""""""""Telescope""""""""""""""
-nnoremap <silent> <leader>ff :Telescope find_files<CR>
-nnoremap <silent> <leader>fg :Telescope live_grep<CR>
-nnoremap <silent> <leader>fr :Telescope oldfiles<CR>
 
 """"""""""""""""""""""""vim-mundo settings"""""""""""""""""""""""
 let g:mundo_verbose_graph = 0

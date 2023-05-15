@@ -10,7 +10,7 @@ require("mason-lspconfig").setup({
       "jsonls",
       "tsserver",
       "kotlin_language_server",
-      "sumneko_lua",
+      "lua_ls",
       "stylelint_lsp",
       "taplo",
       "terraformls",

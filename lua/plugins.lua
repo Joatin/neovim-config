@@ -36,10 +36,8 @@ vim.cmd("packadd packer.nvim")
 local packer = require("packer")
 local packer_util = require("packer.util")
 
-
 packer.startup {
-  function(use) 
-  
+  function(use)
     -- it is recommended to put impatient.nvim before any other plugins
     use { "lewis6991/impatient.nvim", config = [[require('impatient')]] }
 
@@ -59,19 +57,24 @@ packer.startup {
     if vim.g.is_mac then
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
-    
-    use { 
-      "williamboman/mason.nvim", 
+
+    use {
+      "williamboman/mason.nvim",
       config = function()
-        require('mason').setup()
-      end
+        require("mason").setup()
+      end,
     }
     use { "williamboman/mason-lspconfig.nvim", after = "mason.nvim", config = [[require('config.mason-lspconfig')]] }
     use { "jayp0521/mason-null-ls.nvim", after = "mason.nvim", config = [[require('config.mason-null-ls')]] }
 
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
-    use { "neovim/nvim-lspconfig", after = {"cmp-nvim-lsp", "mason-lspconfig.nvim"}, config = [[require('config.lsp')]] }
-    
+    use { 'jose-elias-alvarez/typescript.nvim' }
+    use {
+      "neovim/nvim-lspconfig",
+      after = { "cmp-nvim-lsp", "mason-lspconfig.nvim", 'typescript.nvim' },
+      config = [[require('config.lsp')]],
+    }
+
     if vim.g.is_mac then
       use {
         "nvim-treesitter/nvim-treesitter",
@@ -81,7 +84,7 @@ packer.startup {
       }
     end
 
-    if vim.g.is_mac then 
+    if vim.g.is_mac then
       use {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
@@ -91,7 +94,7 @@ packer.startup {
             -- refer to the configuration section below
           }
         end,
-        after = 'nvim-treesitter'
+        after = "nvim-treesitter",
       }
     end
 
@@ -103,67 +106,97 @@ packer.startup {
           -- or leave it empty to use the default settings
           -- refer to the configuration section below
         }
-      end
+      end,
     }
 
-    use { "windwp/nvim-ts-autotag", after = 'nvim-treesitter' }
-    
+    use {
+      "folke/zen-mode.nvim",
+      config = function()
+        require("zen-mode").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+          plugins = {
+            kitty = {
+              enabled = true,
+              font = "+4", -- font size increment
+            },
+            tmux = { enabled = true },
+            gitsigns = { enabled = true },
+          },
+        }
+      end,
+    }
+
+    use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", config = [[require('config.nvim-ts-autotag')]] }
+
     if vim.g.is_mac then
       use {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        after = 'nvim-treesitter'
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        after = "nvim-treesitter",
       }
     end
 
-    use { 'folke/tokyonight.nvim', config = [[require('config.tokyonight')]] }
+    use("fladson/vim-kitty")
+    use { "folke/tokyonight.nvim", config = [[require('config.tokyonight')]] }
     use {
       "nvim-telescope/telescope.nvim",
       cmd = "Telescope",
       requires = { { "nvim-lua/plenary.nvim" } },
+      config = [[require('config.telescope')]]
+    }
+
+    use {
+      "ggandor/lightspeed.nvim",
+      config = [[require('config.lightspeed')]]
     }
 
     -- search emoji and other symbols
     use { "nvim-telescope/telescope-symbols.nvim", after = "telescope.nvim" }
+
     use {
-	    "vuki656/package-info.nvim",
-    	requires = "MunifTanjim/nui.nvim",
-      config = [[require('config.package-info')]]
-	  }
-	  use {
-    	"jose-elias-alvarez/null-ls.nvim",
-      after = "mason-null-ls.nvim",
-    	requires = { "nvim-lua/plenary.nvim" },
-      config = [[require('config.null-ls')]]
-	  }
-    
-	  use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
-	  use {
-    	'L3MON4D3/LuaSnip',
-    	after = 'nvim-cmp',
+      "nvim-telescope/telescope-frecency.nvim",
       config = function()
-        require("luasnip.loaders.from_lua").lazy_load({ include = { "all", "typescript" } })
-      end
-	  }
-	  use { "lukas-reineke/indent-blankline.nvim", config = [[require('config.indent-blankline')]] }
-	  use {
-  		"folke/trouble.nvim",
-  		requires = "kyazdani42/nvim-web-devicons",
-  		config = function()
-        require("trouble").setup {
-      		-- your configuration comes here
-      		-- or leave it empty to use the default settings
-      	  -- refer to the configuration section below
-    		}
-  		end,
-	  }
-	  use 'RRethy/vim-illuminate'
-	  use { 
-      'norcalli/nvim-colorizer.lua',
-      config = function()
-        require("colorizer").setup()
-      end
+        require("telescope").load_extension("frecency")
+      end,
+      requires = { "kkharji/sqlite.lua" },
+      after = "telescope.nvim"
     }
-    use 'sbdchd/neoformat'
+
+    use {
+      "vuki656/package-info.nvim",
+      requires = "MunifTanjim/nui.nvim",
+      config = [[require('config.package-info')]],
+    }
+    use {
+      "jose-elias-alvarez/null-ls.nvim",
+      after = "mason-null-ls.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require('config.null-ls')]],
+    }
+
+    use { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp", config = [[require('config.luasnip')]] }
+    use {
+      "L3MON4D3/LuaSnip",
+      after = "nvim-cmp",
+      config = function()
+        require("luasnip.loaders.from_lua").lazy_load { include = { "all", "typescript" } }
+      end,
+    }
+    use { "lukas-reineke/indent-blankline.nvim", config = [[require('config.indent-blankline')]] }
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end,
+    }
+    use("RRethy/vim-illuminate")
+    use("sbdchd/neoformat")
 
     use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
 
@@ -171,16 +204,13 @@ packer.startup {
       "nvim-lualine/lualine.nvim",
       event = "VimEnter",
       config = [[require('config.statusline')]],
-      after = 'lspkind-nvim'
+      after = "lspkind-nvim",
     }
 
-    use { "akinsho/bufferline.nvim", event = "VimEnter",
-      config = [[require('config.bufferline')]] }
+    use { "akinsho/bufferline.nvim", event = "VimEnter", config = [[require('config.bufferline')]] }
 
     -- fancy start screen
-    use { "glepnir/dashboard-nvim", event = "VimEnter",
-      config = [[require('config.dashboard-nvim')]]
-    }
+    use { "glepnir/dashboard-nvim", requires = {'nvim-tree/nvim-web-devicons'}, event = "VimEnter", config = [[require('config.dashboard-nvim')]] }
 
     -- Highlight URLs inside vim
     use { "itchyny/vim-highlighturl", event = "VimEnter" }
@@ -248,22 +278,28 @@ packer.startup {
       end,
     }
 
-     -- file explorer
+    -- file explorer
     use {
-      "kyazdani42/nvim-tree.lua",
-      requires = { "kyazdani42/nvim-web-devicons" },
-      config = [[require('config.nvim-tree')]],
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      config = [[require('config.neo-tree')]],
+      requires = { 
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+      }
     }
-
     -- Asynchronous command execution
     use { "skywind3000/asyncrun.vim", opt = true, cmd = { "AsyncRun" } }
-    
 
     use { "ii14/emmylua-nvim", ft = "lua" }
 
-    use { "j-hui/fidget.nvim", after = "nvim-lspconfig", config = function()
-        require('fidget').setup()
-      end
+    use {
+      "j-hui/fidget.nvim",
+      after = "nvim-lspconfig",
+      config = function()
+        require("fidget").setup()
+      end,
     }
 
     use {
@@ -275,16 +311,51 @@ packer.startup {
           -- or leave it empty to use the default settings
           -- refer to the configuration section below
         }
+      end,
+    }
+
+    use ({
+      "Bryley/neoai.nvim",
+      require = { "MunifTanjim/nui.nvim" },
+      config = [[require('config.neoai')]]
+    })
+
+    use { 
+      "zbirenbaum/copilot.lua", 
+      config = [[require('config.copilot')]]
+    }
+
+    use {
+      "zbirenbaum/copilot-cmp",
+      after = { "copilot.lua" },
+      config = function ()
+        require("copilot_cmp").setup()
       end
     }
+
+    use({
+      "glepnir/lspsaga.nvim",
+      opt = true,
+      branch = "main",
+      event = "LspAttach",
+      config = [[require('config.lspsaga')]],
+      requires = {
+        {"nvim-tree/nvim-web-devicons"},
+        --Please make sure you install markdown and markdown_inline parser
+        {"nvim-treesitter/nvim-treesitter"}
+      }
+    })
+
+    use ({
+      "nvim-tree/nvim-web-devicons",
+      config = [[require('config.devicons')]],
+    })
   end,
   config = {
     max_jobs = 16,
     compile_path = packer_util.join_paths(fn.stdpath("data"), "site", "lua", "packer_compiled.lua"),
   },
 }
-
-
 
 -- For fresh install, we need to install plugins. Otherwise, we just need to require `packer_compiled.lua`.
 if fresh_install then

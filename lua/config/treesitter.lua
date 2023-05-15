@@ -1,44 +1,45 @@
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = {
-		"lua",
-		"rust",
-		"javascript",
-		"typescript",
-		"bash",
-		"dockerfile",
-		"git_rebase",
-		"gitattributes",
-		"gitignore",
-		"graphql",
-		"hcl",
-		"html",
-		"jsdoc",
-		"json",
-		"json5",
-		"markdown",
-		"proto",
-		"scss",
-		"sql",
-		"tsx",
-		"yaml"
-	},
-	highlight = {
-    	enable = true,
-    	use_languagetree = true,
+require("nvim-treesitter.configs").setup {
+  ensure_installed = {
+    "lua",
+    "rust",
+    "javascript",
+    "typescript",
+    "bash",
+    "dockerfile",
+    "git_rebase",
+    "gitattributes",
+    "gitignore",
+    "graphql",
+    "hcl",
+    "html",
+    "jsdoc",
+    "json",
+    "json5",
+    "markdown",
+    "proto",
+    "scss",
+    "sql",
+    "tsx",
+    "yaml",
+    "dart"
+  },
+  highlight = {
+    enable = true,
+    use_languagetree = true,
   },
   indent = {
-    	enable = true,
+    enable = true,
   },
   autotag = {
-    	enable = true,
+    enable = true,
   },
   context_commentstring = {
-    	enable = true,
-    	enable_autocmd = false,
+    enable = true,
+    enable_autocmd = false,
   },
   refactor = {
-    	highlight_definitions = { enable = true },
-    	highlight_current_scope = { enable = false },
+    highlight_definitions = { enable = true },
+    highlight_current_scope = { enable = false },
   },
   textobjects = {
     select = {
@@ -64,9 +65,9 @@ require'nvim-treesitter.configs'.setup {
       -- and should return the mode ('v', 'V', or '<c-v>') or a table
       -- mapping query_strings to modes.
       selection_modes = {
-        ['@parameter.outer'] = 'v', -- charwise
-        ['@function.outer'] = 'V', -- linewise
-        ['@class.outer'] = '<c-v>', -- blockwise
+        ["@parameter.outer"] = "v", -- charwise
+        ["@function.outer"] = "V", -- linewise
+        ["@class.outer"] = "<c-v>", -- blockwise
       },
       -- If you set this to `true` (default is `false`) then any textobject is
       -- extended to include preceding or succeeding whitespace. Succeeding
@@ -82,19 +83,19 @@ require'nvim-treesitter.configs'.setup {
   },
   lsp_interop = {
     enable = true,
-    border = 'none',
+    border = "none",
     peek_definition_code = {
       ["<space>df"] = "@function.outer",
       ["<space>dF"] = "@class.outer",
     },
   },
   swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<s>A"] = "@parameter.inner",
-      },
+    enable = true,
+    swap_next = {
+      ["<leader>a"] = "@parameter.inner",
     },
+    swap_previous = {
+      ["<s>A"] = "@parameter.inner",
+    },
+  },
 }

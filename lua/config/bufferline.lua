@@ -17,7 +17,6 @@ require("bufferline").setup {
     max_name_length = 18,
     max_prefix_length = 15,
     tab_size = 10,
-    diagnostics = false,
     custom_filter = function(bufnr)
       -- if the result is false, this buffer will be shown, otherwise, this
       -- buffer will be hidden.
@@ -42,5 +41,16 @@ require("bufferline").setup {
     enforce_regular_tabs = false,
     always_show_bufferline = true,
     sort_by = "id",
+    diagnostics = "nvim_lsp",
+    offsets = {
+      {
+        filetype = "neo-tree",
+        text = function()
+          return vim.fn.getcwd()
+        end,
+        highlight = "Directory",
+        text_align = "left"
+      }
+    }
   },
 }

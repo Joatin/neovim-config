@@ -100,7 +100,6 @@ end
 require("lualine").setup {
   options = {
     icons_enabled = true,
-    theme = "auto",
     -- component_separators = { left = "", right = "" },
     -- section_separators = { left = "", right = "" },
     section_separators = "",
@@ -167,5 +166,5 @@ require("lualine").setup {
     lualine_z = {},
   },
   tabline = {},
-  extensions = { "quickfix", "fugitive", "nvim-tree" },
+  extensions = { "quickfix", "fugitive" },
 }
