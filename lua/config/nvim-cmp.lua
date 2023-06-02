@@ -42,17 +42,17 @@ cmp.setup {
         fallback()
       end
     end,
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<CR>"] = cmp.mapping.confirm { select = false },
     ["<C-e>"] = cmp.mapping.abort(),
     ["<Esc>"] = cmp.mapping.close(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
   },
   sources = cmp.config.sources({
-    { name = "copilot", group_index = 2, priority = 10 },
-    { name = "nvim_lsp", group_index = 2, priority = 10 },
+    { name = "copilot", group_index = 3, priority = 10 },
+    { name = "nvim_lsp", group_index = 2, priority = 20 },
     { name = "path", group_index = 2, priority  = 5 },
-    { name = "luasnip", group_index = 2, priority = 7 }, -- For vsnip users.
+    { name = "luasnip", group_index = 2, priority = 100 }, -- For vsnip users.
     { name = "buffer", group_index = 2, keyword_length = 2, priority = 2 }, -- for buffer word completion
     { name = "emoji", group_index = 2, insert = true, priority = 2 }, -- emoji completion
   }, {
@@ -70,6 +70,7 @@ cmp.setup {
         buffer = "[Buffer]",
         emoji = "[Emoji]",
         omni = "[Omni]",
+        copilot = "[Copilot]",
       },
     },
   },

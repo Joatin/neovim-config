@@ -8,7 +8,7 @@ require("mason-null-ls").setup {
     "luacheck",
     "markdownlint",
     "protolint",
-    "selene",
+--    "selene",
     "shellcheck",
     "vint",
     "yamllint",

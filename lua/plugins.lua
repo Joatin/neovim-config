@@ -54,9 +54,15 @@ packer.startup {
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
     use { "hrsh7th/cmp-omni", after = "nvim-cmp" }
 
-    if vim.g.is_mac then
-      use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
-    end
+    use {
+      's1n7ax/nvim-window-picker',
+      tag = 'v1.*',
+      config = function()
+        require'window-picker'.setup()
+      end,
+    }
+
+    use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
 
     use {
       "williamboman/mason.nvim",
@@ -75,28 +81,24 @@ packer.startup {
       config = [[require('config.lsp')]],
     }
 
-    if vim.g.is_mac then
-      use {
-        "nvim-treesitter/nvim-treesitter",
-        event = "BufEnter",
-        run = ":TSUpdate",
-        config = [[require('config.treesitter')]],
-      }
-    end
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      event = "BufEnter",
+      run = ":TSUpdate",
+      config = [[require('config.treesitter')]],
+    }
 
-    if vim.g.is_mac then
-      use {
-        "nvim-treesitter/nvim-treesitter-context",
-        config = function()
-          require("treesitter-context").setup {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-          }
-        end,
-        after = "nvim-treesitter",
-      }
-    end
+    use {
+      "nvim-treesitter/nvim-treesitter-context",
+      config = function()
+        require("treesitter-context").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end,
+      after = "nvim-treesitter",
+    }
 
     use {
       "folke/twilight.nvim",
@@ -130,12 +132,10 @@ packer.startup {
 
     use { "windwp/nvim-ts-autotag", after = "nvim-treesitter", config = [[require('config.nvim-ts-autotag')]] }
 
-    if vim.g.is_mac then
-      use {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        after = "nvim-treesitter",
-      }
-    end
+    use {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      after = "nvim-treesitter",
+    }
 
     use("fladson/vim-kitty")
     use { "folke/tokyonight.nvim", config = [[require('config.tokyonight')]] }
@@ -170,7 +170,6 @@ packer.startup {
     }
     use {
       "jose-elias-alvarez/null-ls.nvim",
-      after = "mason-null-ls.nvim",
       requires = { "nvim-lua/plenary.nvim" },
       config = [[require('config.null-ls')]],
     }
@@ -186,19 +185,11 @@ packer.startup {
     use { "lukas-reineke/indent-blankline.nvim", config = [[require('config.indent-blankline')]] }
     use {
       "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("trouble").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end,
+      requires = "nvim-tree/nvim-web-devicons",
+      config = [[require('config.trouble')]],
     }
     use("RRethy/vim-illuminate")
     use("sbdchd/neoformat")
-
-    use { "kyazdani42/nvim-web-devicons", event = "VimEnter" }
 
     use {
       "nvim-lualine/lualine.nvim",
@@ -228,10 +219,8 @@ packer.startup {
 
     -- For Windows and Mac, we can open an URL in the browser. For Linux, it may
     -- not be possible since we maybe in a server which disables GUI.
-    if vim.g.is_win or vim.g.is_mac then
-      -- open URL in browser
-      use { "tyru/open-browser.vim", event = "VimEnter" }
-    end
+    -- open URL in browser
+    use { "tyru/open-browser.vim", event = "VimEnter" }
 
     -- Autosave files on certain events
     use { "907th/vim-auto-save", event = "InsertEnter" }
@@ -239,10 +228,7 @@ packer.startup {
     -- Show undo history visually
     use { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } }
 
-    -- Manage your yank history
-    if vim.g.is_win or vim.g.is_mac then
-      use { "svermeulen/vim-yoink", event = "VimEnter" }
-    end
+    use { "svermeulen/vim-yoink", event = "VimEnter" }
 
     -- Git command inside vim
     use { "tpope/vim-fugitive", event = "User InGitRepo", config = [[require('config.fugitive')]] }

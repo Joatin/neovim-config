@@ -8,6 +8,8 @@ keymap.set({ "n", "x" }, ";", ":")
 keymap.set("n", "<TAB>", "<cmd>:bn<cr>", { silent = true, desc = "Next buffer" })
 keymap.set("n", "<S-TAB>", "<cmd>:bp<cr>", { silent = true, desc = "Previous buffer" })
 
+keymap.set("n", "<leader>o", "<cmd>:%bd|e#|bd#|Neotree reveal<cr>", { silent = true, desc = "Previous buffer" })
+
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
 

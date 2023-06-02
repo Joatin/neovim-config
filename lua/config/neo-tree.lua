@@ -2,6 +2,12 @@ local neo_tree = require("neo-tree")
 local keymap = vim.keymap
 
 neo_tree.setup({
+  use_libuv_file_watcher = true,
+  buffers = {
+    follow_current_file = true,
+  },
+  enable_git_status = true,
+  enable_diagnostics = true,
   default_component_configs = {
     icon = {
       folder_empty = "󰜌",

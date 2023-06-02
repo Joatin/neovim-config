@@ -4,7 +4,7 @@ local command_resolver = require("null-ls.helpers.command_resolver")
 null_ls.setup {
   sources = {
     ------ Code Action ------
-    null_ls.builtins.code_actions.eslint,
+--    null_ls.builtins.code_actions.eslint,
     null_ls.builtins.code_actions.gitsigns,
     require("typescript.extensions.null-ls.code-actions"),
 
@@ -16,15 +16,14 @@ null_ls.setup {
     null_ls.builtins.diagnostics.dotenv_linter,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.jsonlint,
-    null_ls.builtins.diagnostics.luacheck,
     null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.diagnostics.protoc_gen_lint,
     null_ls.builtins.diagnostics.protolint,
-    null_ls.builtins.diagnostics.selene,
+    -- null_ls.builtins.diagnostics.selene,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.todo_comments,
     null_ls.builtins.diagnostics.trail_space,
-    null_ls.builtins.diagnostics.tsc,
+--    null_ls.builtins.diagnostics.tsc,
     null_ls.builtins.diagnostics.vint,
     null_ls.builtins.diagnostics.yamllint,
     null_ls.builtins.diagnostics.zsh,
